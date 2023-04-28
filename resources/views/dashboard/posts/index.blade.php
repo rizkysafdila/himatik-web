@@ -74,12 +74,12 @@
     </div>
 
     <!-- Modal Add -->
-    <div class="modal fade"
+    <div class="modal fade modal"
          id="exampleModal"
          tabindex="-1"
          aria-labelledby="exampleModalLabel"
          aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl px-5">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5"
@@ -95,37 +95,21 @@
                     <div class="modal-body">
                         @csrf
                         <div class="mb-3">
-                            <label for="nim"
-                                   class="form-label">NIM</label>
-                            <input type="number"
-                                   class="form-control"
-                                   name="nim"
-                                   id="nim">
-                        </div>
-                        <div class="mb-3">
-                            <label for="name"
-                                   class="form-label">Nama</label>
+                            <label for="title"
+                                   class="form-label">Title</label>
                             <input type="text"
                                    class="form-control"
-                                   name="name"
-                                   id="name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="email"
-                                   class="form-label">Email</label>
-                            <input type="text"
-                                   class="form-control"
-                                   name="email"
-                                   id="email">
+                                   name="title"
+                                   id="title">
                         </div>
                         <div class="mb-3">
                             <label for="department_id"
-                                   class="form-label">Department</label>
+                                   class="form-label">Kategori</label>
                             <select name="department_id"
                                     id="department_id"
                                     class="form-select">
                                 @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->category }}</option>
+                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
                                 @endforeach
                             </select>
                         </div>
