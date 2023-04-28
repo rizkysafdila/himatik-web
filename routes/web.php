@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardMemberController;
 use App\Http\Controllers\DashboardOfficialController;
+use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
@@ -25,7 +26,7 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/posts', [PostController::class, 'index']);
 Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 
-Route::get('/videos', function() {
+Route::get('/videos', function () {
     return view('videos', [
         'title' => 'All Videos'
     ]);
@@ -35,7 +36,7 @@ Route::get('/manage', [LoginController::class, 'index'])->name('login')->middlew
 Route::post('/manage', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::get('/dashboard', function() {
+Route::get('/dashboard', function () {
     return view('dashboard.index', [
         'title' => 'Dashboard',
         'members' => Member::count(),
@@ -47,3 +48,5 @@ Route::get('/dashboard', function() {
 Route::resource('/dashboard/officials', DashboardOfficialController::class)->only(['index', 'update'])->middleware('auth');
 
 Route::resource('/dashboard/members', DashboardMemberController::class)->middleware('auth');
+
+Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
