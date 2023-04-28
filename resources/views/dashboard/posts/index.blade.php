@@ -55,6 +55,11 @@
                                                 data-bs-target="#modalEdit{{ $post->id }}">
                                             <i class="fa-regular fa-pen-to-square me-1"></i>
                                         </button>
+                                        <a href="{{ route('posts.show', $post->slug) }}"
+                                           class="btn btn-success text-white">
+                                            <i class="fa-regular fa-eye me-1"></i>
+                                        </a>
+
                                         <button type="button"
                                                 class="btn btn-danger"
                                                 data-bs-toggle="modal"
