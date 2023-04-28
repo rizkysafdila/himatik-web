@@ -104,9 +104,11 @@
     0% {
         background-position: 0% 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
+
     100% {
         background-position: 0% 50%;
     }
@@ -130,7 +132,8 @@
     color: #5b21b6;
 }
 
-.tell-us input[type="text"], .search {
+.tell-us input[type="text"],
+.search {
     border-radius: 10px 0 0 10px;
 }
 

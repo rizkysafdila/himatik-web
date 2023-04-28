@@ -6,6 +6,7 @@ use App\Models\Member;
 use App\Models\Official;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardOfficialController extends Controller
 {
@@ -78,7 +79,23 @@ class DashboardOfficialController extends Controller
             'nama' => 'required|max:255',
         ]);
 
-        Official::where('id', $official->id)->update($validatedData);
+        $oldImage = Official::where('id', $official->id)->first();
+
+        if ($request->file('image') != $oldImage->image) {
+            $validateData["image"]  = $oldImage->image;
+        } else {
+            $validateData["image"]  = "file|image|required";
+        }
+
+        if ($request->file('image')) {
+            if ($oldImage->image) {
+                Storage::delete($oldImage->image);
+            }
+            $image = date('dmy') . $request->file('image')->getClientOriginalName();
+            $validateData['image'] = $request->file('image')->storeAs('officials', $image);
+        }
+
+        $official->update($validateData);
 
         return redirect('/dashboard/officials')->with('success', 'Struktur Kepengurusan berhasil diperbarui!');
     }
