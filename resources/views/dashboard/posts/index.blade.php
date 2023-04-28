@@ -74,13 +74,14 @@
     </div>
 
     <!-- Modal Add -->
-    <div class="modal fade modal"
+    <div class="modal fade-modal"
          id="exampleModal"
          tabindex="-1"
          aria-labelledby="exampleModalLabel"
          aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl px-5">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
+            <div class="modal-content overflow-scroll"
+                 style="overflow-x: hidden !important; ">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5"
                         id="exampleModalLabel">Create new post</h1>
@@ -103,23 +104,19 @@
                                    id="title">
                         </div>
                         <div class="mb-3">
-                            <label for="department_id"
-                                   class="form-label">Kategori</label>
-                            <select name="department_id"
-                                    id="department_id"
-                                    class="form-select">
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="class"
-                                   class="form-label">Kelas</label>
+                            <label for="excerpt"
+                                   class="form-label">Excerpt</label>
                             <input type="text"
                                    class="form-control"
-                                   name="class"
-                                   id="class">
+                                   name="excerpt"
+                                   id="excerpt">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="body"
+                                   class="form-label">Body</label>
+                            <textarea class="ckeditor form-control"
+                                      name="body"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="image"
@@ -292,4 +289,13 @@
 
 
     <script src="{{ asset('js/datatables.js') }}"></script>
+    <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+
+    <script type="text/javascript">
+        $(dokumen).siap(fungsi() {
+
+            $('.ckeditor').ckeditor();
+
+        });
+    </script>
 @endsection

@@ -18,7 +18,7 @@ class DashboardPostController extends Controller
         return view('dashboard.posts.index', [
             'title' => 'Daftar Posts',
             "posts" => Post::select('title', 'image', 'slug', 'id')->get(),
-            "categories" => Category::select('name', 'slug'),
+            "categories" => Category::select('name', 'id')->get(),
         ]);
     }
 
