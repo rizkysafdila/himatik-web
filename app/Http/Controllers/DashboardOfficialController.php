@@ -91,6 +91,5 @@ class DashboardOfficialController extends Controller
      */
     public function destroy(Official $official)
     {
-        //
     }
 }

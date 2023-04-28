@@ -15,7 +15,7 @@ class PostController extends Controller
             $category = Category::firstWhere('slug', request('category'));
             $title = ' in ' . $category->name;
         }
-        
+
         return view('posts', [
             "title" => "All Posts $title",
             // "posts" => Post::all()
@@ -29,5 +29,13 @@ class PostController extends Controller
             'title' => $post->title,
             'post' => $post
         ]);
+    }
+
+    public function edit(Post $post) {
+
+    }
+
+    public function update(Request $request, Post $post) {
+
     }
 }

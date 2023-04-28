@@ -15,11 +15,12 @@ class CreateMembersTable extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('department_id');
             $table->string('nim')->unique();
             $table->string('name');
             $table->string('email')->unique();
-            $table->foreignId('department_id');
             $table->string('class')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
