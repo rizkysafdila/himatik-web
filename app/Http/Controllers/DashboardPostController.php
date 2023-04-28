@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class DashboardPostController extends Controller
@@ -17,7 +18,7 @@ class DashboardPostController extends Controller
     {
         return view('dashboard.posts.index', [
             'title' => 'Daftar Posts',
-            "posts" => Post::select('title', 'image', 'slug', 'id')->get(),
+            "posts" => Post::select('title', 'image', 'slug', 'id')->latest()->get(),
             "categories" => Category::select('name', 'id')->get(),
         ]);
     }
@@ -40,7 +41,23 @@ class DashboardPostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            "title" => ['required', 'min:10'],
+            "excerpt" => ['required', 'min:10'],
+            "body" => ['required', 'min:20'],
+            "category_id" => ['required'],
+            "image" => ['image', 'file', 'required'],
+        ]);
+
+        $validateData['slug'] = Str::slug($request->title) . ('d');
+
+        if ($request->file('image')) {
+            $image = date('dmy') . $request->file('image')->getClientOriginalName();
+            $validateData['image'] = $request->file('image')->storeAs('posts', $image);
+        }
+
+        Post::create($validateData);
+        return back()->with('success', 'Post has been created!');
     }
 
     /**

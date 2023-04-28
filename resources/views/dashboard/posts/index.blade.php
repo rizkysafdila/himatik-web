@@ -45,8 +45,8 @@
                                              width="50"
                                              class="rounded">
                                     </td>
-                                    <td>{{ $post->title }}</td>
-                                    <td>{{ Str::limit($post->slug, 30, '...') }}</td>
+                                    <td>{{ Str::limit($post->title, 50, '...') }}</td>
+                                    <td>{{ Str::limit($post->slug, 50, '...') }}</td>
                                     <td>
 
                                         <button type="button"
@@ -111,7 +111,17 @@
                                    name="excerpt"
                                    id="excerpt">
                         </div>
-
+                        <div class="mb-3">
+                            <label for="category_id"
+                                   class="form-label">Category</label>
+                            <select name="category_id"
+                                    id="category_id"
+                                    class="form-select">
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="mb-3">
                             <label for="body"
                                    class="form-label">Body</label>
@@ -194,19 +204,19 @@
                                        value="{{ $post->email }}">
                             </div>
                             <div class="mb-3">
-                                <label for="department_id"
+                                <label for="category_id"
                                        class="form-label">Department</label>
-                                <select name="department_id"
-                                        id="department_id"
+                                <select name="category_id"
+                                        id="category_id"
                                         class="form-select">
                                     @foreach ($categories as $category)
-                                        @if ($category->id == $post->department_id)
+                                        @if ($category->id == $post->category_id)
                                             <option value="{{ $category->id }}"
                                                     selected>{{ $category->category }}</option>
                                         @endif
                                     @endforeach
                                     @foreach ($categories as $category)
-                                        @if ($category->id != $post->department_id)
+                                        @if ($category->id != $post->category_id)
                                             <option value="{{ $category->id }}">{{ $category->category }}</option>
                                         @endif
                                     @endforeach

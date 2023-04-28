@@ -49,8 +49,6 @@
           type="image/x-icon">
 
     <title>HIMATIK PNL | Dashboard</title>
-
-    @stack('scripts')
 </head>
 
 <body>
