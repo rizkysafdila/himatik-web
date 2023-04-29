@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/posts', [PostController::class, 'index']);
 Route::get('/posts/{post:slug}', [PostController::class, 'show']);

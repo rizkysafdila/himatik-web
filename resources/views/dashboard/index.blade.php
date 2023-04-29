@@ -24,7 +24,7 @@
             <div class="card p-1 shadow-sm rounded-3 border-0 bg-rose-400">
                 <div class="card-body">
                     <i class="fa-duotone fa-circle-play fa-2x p-2"></i>
-                    <h4 class="card-title mt-3">{{ $videos }}</h4>
+                    <h4 class="card-title mt-3">{{ 10 }}</h4>
                     <p class="card-text lh-1">Total Video</p>
                 </div>
             </div>
