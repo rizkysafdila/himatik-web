@@ -165,8 +165,9 @@
              tabindex="-1"
              aria-labelledby="exampleModalLabel"
              aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
+            <div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
+                <div class="modal-content overflow-scroll"
+                     style="overflow-x: hidden !important; ">
                     <div class="modal-header">
                         <h5 class="modal-title"
                             id="exampleModalLabel">Edit Data Anggota</h5>
@@ -175,67 +176,57 @@
                                 data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                     </div>
-                    <form action="{{ route('posts.update', $post->id) }}"
+                    <form action="{{ route('posts.update', $post->slug) }}"
                           method="post"
                           enctype="multipart/form-data">
                         <div class="modal-body">
                             @csrf
                             @method('put')
                             <div class="mb-3">
-                                <label for="nim"
-                                       class="form-label">NIM</label>
-                                <input type="number"
-                                       class="form-control"
-                                       name="nim"
-                                       id="nim"
-                                       value="{{ $post->nim }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="name"
-                                       class="form-label">Nama</label>
+                                <label for="title"
+                                       class="form-label">Title</label>
                                 <input type="text"
                                        class="form-control"
-                                       name="name"
-                                       id="name"
-                                       value="{{ $post->name }}">
+                                       name="title"
+                                       id="title"
+                                       value="{{ $post->title }}">
                             </div>
                             <div class="mb-3">
-                                <label for="email"
-                                       class="form-label">Email</label>
+                                <label for="excerpt"
+                                       class="form-label">Excerpt</label>
                                 <input type="text"
                                        class="form-control"
-                                       name="email"
-                                       id="email"
-                                       value="{{ $post->email }}">
+                                       name="excerpt"
+                                       id="excerpt"
+                                       value="{{ $post->excerpt }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="body"
+                                       class="form-label">Body</label>
+                                <textarea class="ckeditor form-control"
+                                          name="body"
+                                          value="{{ $post->body }}">{{ $post->body }}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="category_id"
-                                       class="form-label">Department</label>
+                                       class="form-label">Category</label>
                                 <select name="category_id"
                                         id="category_id"
                                         class="form-select">
                                     @foreach ($categories as $category)
                                         @if ($category->id == $post->category_id)
                                             <option value="{{ $category->id }}"
-                                                    selected>{{ $category->category }}</option>
+                                                    selected>{{ $category->name }}</option>
                                         @endif
                                     @endforeach
                                     @foreach ($categories as $category)
                                         @if ($category->id != $post->category_id)
-                                            <option value="{{ $category->id }}">{{ $category->category }}</option>
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endif
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="mb-3">
-                                <label for="class"
-                                       class="form-label">Kelas</label>
-                                <input type="text"
-                                       class="form-control"
-                                       name="class"
-                                       id="class"
-                                       value="{{ $post->class }}">
-                            </div>
+
                             <div class="mb-3">
                                 <label for="image"
                                        class="d-block">Gambar</label>

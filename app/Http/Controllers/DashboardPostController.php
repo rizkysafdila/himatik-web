@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardPostController extends Controller
 {
@@ -18,7 +19,7 @@ class DashboardPostController extends Controller
     {
         return view('dashboard.posts.index', [
             'title' => 'Daftar Posts',
-            "posts" => Post::select('title', 'image', 'slug', 'id')->latest()->get(),
+            "posts" => Post::select('title', 'image', 'slug', 'id', 'excerpt', 'body', 'category_id')->latest()->get(),
             "categories" => Category::select('name', 'id')->get(),
         ]);
     }
@@ -96,7 +97,32 @@ class DashboardPostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $validateData = $request->validate([
+            "title" => ['required', 'min:10'],
+            "excerpt" => ['required', 'min:10'],
+            "body" => ['required', 'min:20'],
+            "category_id" => ['required'],
+        ]);
+
+
+        $oldImage = Post::where('id', $post->id)->first();
+
+        if ($request->file('image') != $oldImage->image) {
+            $validateData["image"]  = $oldImage->image;
+        } else {
+            $validateData["image"]  = "file|image|required";
+        }
+
+        if ($request->file('image')) {
+            if ($oldImage->image) {
+                Storage::delete($oldImage->image);
+            }
+            $image = date('dmy') . $request->file('image')->getClientOriginalName();
+            $validateData['image'] = $request->file('image')->storeAs('posts', $image);
+        }
+
+        $post->update($validateData);
+        return back()->with('success', 'Post has been updated!');
     }
 
     /**
