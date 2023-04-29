@@ -133,6 +133,11 @@ class DashboardPostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $oldImage = Post::where('id', $post->id)->first();
+        if ($oldImage->image) {
+            Storage::delete($oldImage->image);
+        }
+        $post->delete();
+        return back()->with('success', 'Post has been deleted!');
     }
 }

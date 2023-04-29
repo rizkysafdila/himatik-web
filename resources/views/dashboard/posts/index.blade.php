@@ -273,7 +273,7 @@
                                 data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                     </div>
-                    <form action="{{ route('posts.destroy', $post->id) }}"
+                    <form action="{{ route('posts.destroy', $post->slug) }}"
                           method="post">
                         <div class="modal-body">
                             @csrf
