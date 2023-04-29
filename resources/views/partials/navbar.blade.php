@@ -1,10 +1,19 @@
 <nav class="navbar navbar-expand-lg navbar-light py-3">
     <div class="container py-2">
+        @php
+            $setting = \App\Models\Setting::first();
+        @endphp
         <a class="navbar-brand"
            href="/">
-            <img src="{{ asset('img/himatik-type.png') }}"
-                 alt="Himatik PNL"
-                 height="30">
+            @if ($setting)
+                <img src="{{ asset('storage/' . $setting->favicon) }}"
+                     alt="Himatik PNL"
+                     height="30">
+            @else
+                <img src="{{ asset('img/himatik-type.png') }}"
+                     alt="Himatik PNL"
+                     height="30">
+            @endif
         </a>
         <button class="navbar-toggler"
                 type="button"

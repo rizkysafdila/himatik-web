@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
 use App\Models\Official;
-use Illuminate\Http\Request;
+use App\Models\Setting;
 
 class HomeController extends Controller
 {
@@ -12,7 +11,8 @@ class HomeController extends Controller
     {
         return view('home', [
             'title' => 'Home',
-            'officials' => Official::all()
+            'officials' => Official::all(),
+            'setting' => Setting::first()
         ]);
     }
 }

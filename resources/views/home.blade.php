@@ -13,7 +13,7 @@
                     <div class="carousel-inner">
                         <div class="hero-img carousel-item active">
                             <img class="text-end img-fluid"
-                                 src="img/himatik.png"
+                                 src="{{ asset('storage/' . $setting->icon) }}"
                                  class="d-block"
                                  alt="..."
                                  width="100%">
