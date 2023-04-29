@@ -39,15 +39,6 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard.index', [
-            'title' => 'Dashboard',
-            'members' => Member::count(),
-            'posts' => Post::count(),
-            // 'videos' => Video::count()
-        ]);
-    })->middleware('auth');
-
     Route::get('/dashboard', DashboardController::class)->middleware('auth');
 
     Route::resource('/dashboard/officials', DashboardOfficialController::class)->only(['index', 'update'])->middleware('auth');

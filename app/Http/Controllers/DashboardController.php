@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Member;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -14,6 +16,11 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        //
+        return view('dashboard.index', [
+            'title' => 'Dashboard',
+            'members' => Member::count(),
+            'posts' => Post::count(),
+            // 'videos' => Video::count()
+        ]);
     }
 }
