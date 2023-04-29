@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardMemberController;
 use App\Http\Controllers\DashboardOfficialController;
 use App\Http\Controllers\DashboardPostController;
@@ -36,17 +37,23 @@ Route::get('/manage', [LoginController::class, 'index'])->name('login')->middlew
 Route::post('/manage', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard.index', [
-        'title' => 'Dashboard',
-        'members' => Member::count(),
-        'posts' => Post::count(),
-        // 'videos' => Video::count()
-    ]);
-})->middleware('auth');
 
-Route::resource('/dashboard/officials', DashboardOfficialController::class)->only(['index', 'update'])->middleware('auth');
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard.index', [
+            'title' => 'Dashboard',
+            'members' => Member::count(),
+            'posts' => Post::count(),
+            // 'videos' => Video::count()
+        ]);
+    })->middleware('auth');
 
-Route::resource('/dashboard/members', DashboardMemberController::class)->middleware('auth');
+    Route::get('/dashboard', DashboardController::class)->middleware('auth');
+
+    Route::resource('/dashboard/officials', DashboardOfficialController::class)->only(['index', 'update'])->middleware('auth');
+
+    Route::resource('/dashboard/members', DashboardMemberController::class)->middleware('auth');
+});
+
 
 Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
