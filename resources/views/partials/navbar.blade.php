@@ -59,7 +59,7 @@
                             <li>
                                 <a href="{{ route('dashboard') }}"
                                    class="dropdown-item">
-                                    <i class="fa-duotone fa-home me-2 mb-2"></i>
+                                    <i class="fa-duotone fa-duotone fa-grid-2 me-2"></i>
                                     Dashboard
                                 </a>
                                 <form action="/logout"

@@ -32,10 +32,9 @@
                  data-aos="fade-right"
                  data-aos-duration="1000">
                 <h5 class="fw-light text-muted">WELCOME TO</h5>
-                <h1 class="display-3 fw-bold lh-sm">HIMATIK PNL</h1>
+                <h1 class="display-3 fw-bold lh-sm">{{ $setting->title }}</h1>
                 <p class="hero-desc">
-                    Himpunan Mahasiswa Teknologi Informasi dan Komputer <br>
-                    Politeknik Negeri Lhokseumawe
+                    {{ $setting->motto }}
                 </p>
                 <div class="social-media d-flex my-4">
                     <p class="text-secondary">Follow Us</p>
@@ -180,8 +179,7 @@
                 </div>
                 <div class="modal-body">
                     <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo quod, amet distinctio libero
-                        blanditiis recusandae sunt optio, explicabo quasi debitis consequatur cumque animi sed!
+                        {{ $setting->description }}
                     </p>
                 </div>
             </div>

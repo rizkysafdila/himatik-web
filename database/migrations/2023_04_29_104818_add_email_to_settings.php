@@ -26,7 +26,7 @@ class AddEmailToSettings extends Migration
     public function down()
     {
         Schema::table('settings', function (Blueprint $table) {
-            $table->string('email');
+            $table->dropColumn('email');
         });
     }
 }

@@ -17,7 +17,7 @@ class CreateSettingsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('motto');
-            $table->string('description');
+            $table->text('description');
             $table->string('icon')->nullable();
             $table->string('favicon')->nullable();
             $table->timestamps();
