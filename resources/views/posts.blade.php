@@ -45,12 +45,13 @@
                             <h5 class="card-title m-0">
                                 <a class="text-decoration-none link-dark"
                                    href="/posts/{{ $post->slug }}">
-                                    {{ $post->title }}
+                                    {{ \Illuminate\Support\Str::limit($post->title, $limit = 25, $end = ' ...') }}
                                 </a>
                             </h5>
                             <p class="card-text mt-1"><small
                                        class="text-muted">{{ $post->created_at->diffForHumans() }}</small></p>
-                            <p class="card-text">{{ $post->excerpt }}</p>
+                            <p class="card-text">
+                                {{ \Illuminate\Support\Str::limit($post->excerpt, $limit = 50, $end = ' ...') }}</p>
                         </div>
                     </div>
                 </div>

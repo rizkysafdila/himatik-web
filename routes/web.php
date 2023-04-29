@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardMemberController;
 use App\Http\Controllers\DashboardOfficialController;
 use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\DashboardSettingController;
+use App\Http\Controllers\DashboardVideoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
@@ -26,19 +27,17 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/posts', [PostController::class, 'index']);
 Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 
-Route::get('/videos', function () {
-    return view('videos', [
-        'title' => 'All Videos'
-    ]);
-});
+Route::get('/videos', [DashboardVideoController::class, 'index']);
+Route::get('/videos/{id}', [DashboardVideoController::class, 'show'])->name('videos');
 
 Route::get('/manage', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/manage', [LoginController::class, 'authenticate']);
-Route::post('/logout', [LoginController::class, 'logout']);
 
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', DashboardController::class)->middleware('auth')->name('dashboard');
+
+    Route::post('/logout', [LoginController::class, 'logout']);
 
     Route::resource('/dashboard/settings', DashboardSettingController::class)->middleware('auth');
 
