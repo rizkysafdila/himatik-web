@@ -39,7 +39,7 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', DashboardController::class)->middleware('auth');
+    Route::get('/dashboard', DashboardController::class)->middleware('auth')->name('dashboard');
 
     Route::resource('/dashboard/officials', DashboardOfficialController::class)->only(['index', 'update'])->middleware('auth');
 
