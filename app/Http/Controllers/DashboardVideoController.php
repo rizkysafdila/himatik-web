@@ -9,22 +9,10 @@ class DashboardVideoController extends Controller
 {
     public function index()
     {
-        if (session('seacrh')) {
-            $videos = $this->_videoList(session('search'));
-        } else {
-            $videos = $this->_videoList('himatik pnl');
-        }
-        return view('videos', [
+        $videos = $this->_videoList('himatik pnl');
+        return view('dashboard.videos.index', [
             'title' => 'All Videos',
             "videos" => $videos
-        ]);
-    }
-
-    public function show($id)
-    {
-        $singleVideo = $this->_singleVideo($id);
-        return view('video', [
-            "video" => $singleVideo
         ]);
     }
 
@@ -41,21 +29,6 @@ class DashboardVideoController extends Controller
         $response = Http::get($url);
         $result = json_decode($response);
         FacadesFile::put(storage_path() . '/app/public/result.json', $response->body());
-        return $result;
-    }
-
-    protected function _singleVideo($id)
-    {
-        $apiKey = config('services.youtube.api_key');
-        $part = 'snippet';
-        $url = "https://www.googleapis.com/youtube/v3/videos?part=$part&id=$id&key=$apiKey";
-
-        $response = HTTP::get($url);
-
-        $result = json_decode($response);
-
-        FacadesFile::put(storage_path() . '/app/public/single.json', $response->body());
-
         return $result;
     }
 }

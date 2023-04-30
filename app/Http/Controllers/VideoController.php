@@ -2,84 +2,60 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Video;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File as FacadesFile;
+use Illuminate\Support\Facades\Http;
 
 class VideoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        if (session('seacrh')) {
+            $videos = $this->_videoList(session('search'));
+        } else {
+            $videos = $this->_videoList('himatik pnl');
+        }
+        return view('videos', [
+            'title' => 'All Videos',
+            "videos" => $videos
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function show($id)
     {
-        //
+        $singleVideo = $this->_singleVideo($id);
+        return view('video', [
+            "video" => $singleVideo
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    protected function _videoList($keywords)
     {
-        //
+        $part = 'snippet';
+        $country = 'ID';
+        $apiKey = config('services.youtube.api_key');
+        $maxResult = 12;
+        $youTubeEndPoint = config('services.youtube.search_endpoint');
+        $type = 'video';
+
+        $url = "$youTubeEndPoint?part=$part&maxResults=$maxResult&regionCode=$country&type=$type&key=$apiKey&q=$keywords";
+        $response = Http::get($url);
+        $result = json_decode($response);
+        FacadesFile::put(storage_path() . '/app/public/result.json', $response->body());
+        return $result;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Video  $video
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Video $video)
+    protected function _singleVideo($id)
     {
-        //
-    }
+        $apiKey = config('services.youtube.api_key');
+        $part = 'snippet';
+        $url = "https://www.googleapis.com/youtube/v3/videos?part=$part&id=$id&key=$apiKey";
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Video  $video
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Video $video)
-    {
-        //
-    }
+        $response = HTTP::get($url);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Video  $video
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Video $video)
-    {
-        //
-    }
+        $result = json_decode($response);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Video  $video
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Video $video)
-    {
-        //
+        FacadesFile::put(storage_path() . '/app/public/single.json', $response->body());
+
+        return $result;
     }
 }
