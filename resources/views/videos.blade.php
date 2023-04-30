@@ -32,7 +32,7 @@
     <div class="container">
         <div class="row">
             @forelse ($videos->items as $key => $item)
-                <div class="col-md-4">
+                <div class="col-md-4 mb-4">
                     <div class="card rounded-10 p-3">
                         <img src="{{ $item->snippet->thumbnails->medium->url }}"
                              class="card-img-top rounded-10"
