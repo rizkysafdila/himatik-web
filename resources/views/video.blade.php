@@ -16,10 +16,6 @@
             <div class="d-flex align-items-center mb-3">
                 <p class="text-muted m-0">Published at
                     {{ date('d M Y', strtotime($video->items[0]->snippet->publishedAt)) }}</p>
-                <div class="ms-2 badge bg-dark">
-                    <a class="text-decoration-none text-light"
-                       href="/posts?category={{ $video->category->slug }}">{{ $video->category->name }}</a>
-                </div>
             </div>
 
             <div class="width:100%">
@@ -33,7 +29,7 @@
             </div>
 
             <article class="mt-4">
-                {{ $video->body }}
+                {{ $video->items[0]->snippet->description }}
             </article>
         </div>
     </div>

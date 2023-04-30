@@ -24,6 +24,7 @@ class VideoController extends Controller
     {
         $singleVideo = $this->_singleVideo($id);
         return view('video', [
+            'title' => 'Detail Video',
             "video" => $singleVideo
         ]);
     }
