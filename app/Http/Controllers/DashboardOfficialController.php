@@ -75,7 +75,7 @@ class DashboardOfficialController extends Controller
      */
     public function update(Request $request, Official $official)
     {
-        $validatedData = $request->validate([
+        $validateData = $request->validate([
             'nama' => 'required|max:255',
         ]);
 
