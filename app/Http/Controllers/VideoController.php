@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File as FacadesFile;
 use Illuminate\Support\Facades\Http;
 
 class VideoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        if (session('seacrh')) {
-            $videos = $this->_videoList(session('search'));
+        if (isset($request->search)) {
+            $videos = $this->_videoList($request->search);
         } else {
             $videos = $this->_videoList('himatik pnl');
         }
